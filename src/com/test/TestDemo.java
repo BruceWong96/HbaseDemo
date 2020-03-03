@@ -191,8 +191,9 @@ public class TestDemo {
 		HBaseAdmin admin = new HBaseAdmin(configuration);
 		admin.disableTable("tab1".getBytes());
 		admin.deleteTable("tab1".getBytes());
-
 		admin.close();
 	}
+	
+	
 	
 }

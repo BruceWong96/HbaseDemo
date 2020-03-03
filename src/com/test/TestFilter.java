@@ -9,6 +9,7 @@ import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.filter.BinaryComparator;
 import org.apache.hadoop.hbase.filter.CompareFilter.CompareOp;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.RegexStringComparator;
@@ -32,11 +33,16 @@ public class TestFilter {
 		HTable table = new HTable(configuration, "tab2");
 		Scan scan = new Scan();
 		//可以设定扫描的范围
-		scan.setStartRow("row30".getBytes());
-		scan.setStopRow("row60".getBytes());
+//		scan.setStartRow("row30".getBytes());
+//		scan.setStopRow("row60".getBytes());
 		
 		//定义过滤器，包含3的行键
-		Filter filter = new RowFilter(CompareOp.EQUAL, new RegexStringComparator("^.*3.*$"));
+//		Filter filter = new RowFilter(CompareOp.EQUAL, new RegexStringComparator("^.*3.*$"));
+		
+		//行键比较过滤器 1.等于  2.小于  3.大于  4.小于等于  5.大于等于
+		Filter filter = new RowFilter(CompareOp.LESS_OR_EQUAL, new BinaryComparator("row90".getBytes()));
+		
+		
 		
 		scan.setFilter(filter);
 		ResultScanner resultScanner = table.getScanner(scan);
